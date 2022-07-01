@@ -182,10 +182,10 @@ install(DIRECTORY
 ## Testing.
 
 ## Add gtest based cpp test target and link libraries.
-# catkin_add_gtest(${PROJECT_NAME}-test test/test_package_name.cpp)
+# catkin_add_gtest(${PROJECT_NAME}-test tests/test_package_name.cpp)
 # if(TARGET ${PROJECT_NAME}-test)
 #   target_link_libraries(${PROJECT_NAME}-test ${PROJECT_NAME}_lib)
 # endif()
 
 ## Add folders to be run by python nosetests.
-# catkin_add_nosetests(test)
+# catkin_add_nosetests(tests)
