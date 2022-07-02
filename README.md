@@ -1,5 +1,12 @@
 # Catkin package template
 
+## TODOs
+
+- [ ] Messages/services/actions generation.
+- [ ] Dynamic reconfigure generation.
+- [ ] CMake external dependencies (FetchContent/Git submodules). 
+- [ ] Unit and integration tests (gtest/gmock/rostest).
+
 ## Featuring
 
 - Modern CMake support.
