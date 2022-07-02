@@ -6,6 +6,7 @@
 - [ ] Dynamic reconfigure generation.
 - [ ] CMake external dependencies (FetchContent/Git submodules). 
 - [ ] Unit and integration tests (gtest/gmock/rostest).
+- [ ] Basic publisher-subscriber example (C++/Python).
 
 ## Featuring
 
