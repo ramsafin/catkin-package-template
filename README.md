@@ -3,7 +3,7 @@
 ## Featuring
 
 - Modern CMake support.
-- ROS 1 projects oriented.
+- ROS 1 projects support.
 - Package Manifest Format 3 Specification.
 - Standard ROS project structure layout.
 
