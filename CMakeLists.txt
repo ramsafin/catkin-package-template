@@ -106,38 +106,39 @@ find_package(catkin REQUIRED COMPONENTS
 ##  DEPENDS: system dependencies of this project
 catkin_package(
   INCLUDE_DIRS include
-  LIBRARIES ${PROJECT_NAME}_lib
+  LIBRARIES ${PROJECT_NAME}
   CATKIN_DEPENDS roscpp rospy roslib std_msgs
 #  DEPENDS system_lib
 )
 
+## Declare a C++ interface library.
+add_library(catkin_deps INTERFACE)
+target_link_libraries(catkin_deps INTERFACE ${catkin_LIBRARIES})
+target_include_directories(catkin_deps INTERFACE include ${catkin_INCLUDE_DIRS})
+
 ## Declare a C++ library.
-add_library(${PROJECT_NAME}_lib
-  src/package_lib.cpp
+add_library(${PROJECT_NAME}
+  src/lib.cpp include/package/lib.hpp
 )
 
 ## Specify libraries to link a library target against.
-target_link_libraries(${PROJECT_NAME}_lib PUBLIC
-  ${catkin_LIBRARIES}
-)
+target_link_libraries(${PROJECT_NAME} PUBLIC catkin_deps)
 
-target_include_directories(${PROJECT_NAME}_lib PUBLIC include ${catkin_INCLUDE_DIRS})
+## Specify directories with header files fo the target.
+target_include_directories(${PROJECT_NAME} PUBLIC include)
 
 ## Add CMake target dependencies of the library.
 ##
 ## As an example, code may need to be generated before libraries
 ## either from message generation or dynamic reconfigure.
-add_dependencies(${PROJECT_NAME}_lib ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
+add_dependencies(${PROJECT_NAME} ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
 
 ## Declare a C++ executable.
-add_executable(${PROJECT_NAME}_node src/package_node.cpp)
-
-## Add CMake target dependencies of the executable (see add_dependecines for the library).
-add_dependencies(${PROJECT_NAME}_node ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
+add_executable(cpp_node src/cpp_node.cpp)
 
 ## Specify libraries to link an executable target against.
-target_link_libraries(${PROJECT_NAME}_node PUBLIC
-  ${PROJECT_NAME}_lib
+target_link_libraries(cpp_node PRIVATE
+  ${PROJECT_NAME}
 )
 
 
@@ -149,26 +150,26 @@ target_link_libraries(${PROJECT_NAME}_node PUBLIC
 ## Mark executable scripts (Python etc.) for installation.
 ## In contrast to setup.py, you can choose the destination.
 catkin_install_python(PROGRAMS
-  scripts/script.py
+  scripts/py_node.py
   DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
 )
 
 ## Mark executables for installation.
 ## See http://docs.ros.org/en/melodic/api/catkin/html/howto/format2/building_executables.html.
-install(TARGETS ${PROJECT_NAME}_node
+install(TARGETS cpp_node
   RUNTIME DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
 )
 
 ## Mark libraries for installation.
 ## See http://docs.ros.org/en/melodic/api/catkin/html/howto/format2/building_libraries.html.
-install(TARGETS ${PROJECT_NAME}_lib
+install(TARGETS ${PROJECT_NAME}
   ARCHIVE DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
   LIBRARY DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
   RUNTIME DESTINATION ${CATKIN_GLOBAL_BIN_DESTINATION}
 )
 
 ## Mark cpp header files for installation.
-install(DIRECTORY include/${PROJECT_NAME}
+install(DIRECTORY include/package
   DESTINATION ${CATKIN_PACKAGE_INCLUDE_DESTINATION}
   FILES_MATCHING PATTERN "*.hpp"
 )
