@@ -7,6 +7,7 @@
 - [ ] CMake external dependencies (FetchContent/Git submodules). 
 - [ ] Unit and integration tests (gtest/gmock/rostest).
 - [ ] Basic publisher-subscriber example (C++/Python).
+- [ ] Catkin usage section (create/build/install/clean/test package).
 
 ## Featuring
 
